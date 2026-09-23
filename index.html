@@ -18,7 +18,7 @@
 @media (max-width:768px){
   html,body{background:#18211f;min-height:100%;overflow-x:hidden}
   .hero{display:none}
-  .mobile-home{display:block;min-height:100vh;color:#fff;font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif}
+  .mobile-home{display:block;min-height:100vh;color:#5a4635;font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif}
   .m-cover{position:relative;min-height:48vh;background:
     linear-gradient(180deg,rgba(12,20,19,.18),rgba(12,20,19,.78)),
     url("images/main_home.png") center/cover no-repeat;padding:22px 20px 34px;display:flex;flex-direction:column}
@@ -46,6 +46,126 @@
 .music-toggle{position:fixed;right:18px;top:18px;z-index:50;border:1px solid rgba(255,255,255,.7);border-radius:999px;background:rgba(18,31,29,.86);color:#fff;padding:11px 16px;font:700 14px/1 "Malgun Gothic",sans-serif;box-shadow:0 4px 16px rgba(0,0,0,.28);cursor:pointer;backdrop-filter:blur(5px)}
 .music-toggle:hover{background:rgba(32,59,54,.96)}
 @media(max-width:768px){.music-toggle{right:14px;top:14px;padding:11px 14px;font-size:13px}}
+
+
+/* ===== 나.인.지 · 발자취 미리보기 ===== */
+/* PC: 석양 이미지를 살리고, 전체 패널을 오른쪽에 세로형으로 배치 */
+.visit-panel{
+  position:absolute;
+  z-index:20;
+  right:2.4%;
+  top:14%;
+  left:auto;
+  transform:none;
+  width:280px;
+  max-height:68%;
+  padding:18px 16px 16px;
+  border:1px solid rgba(163,126,83,.38);
+  border-radius:18px;
+  background:rgba(248,241,230,.92);
+  color:#3f352c;
+  box-shadow:0 12px 30px rgba(0,0,0,.16);
+  backdrop-filter:blur(8px);
+  text-align:center;
+  font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+}
+.visit-count{font:700 22px/1.25 "Batang",serif;letter-spacing:.02em}
+.visit-count span{color:#a7672f}
+.visit-sub{margin:5px 0 14px;font-size:12px;line-height:1.5;color:#76685a}
+.visit-title{margin:0 0 10px;font:700 15px/1.3 "Batang",serif;color:#6b4d35}
+.visit-list{display:flex;flex-direction:column;gap:8px;text-align:left}
+.visit-item{padding:9px 10px;border-radius:11px;background:rgba(255,255,255,.72);min-height:auto}
+.visit-item p{margin:0 0 5px;font-size:12px;line-height:1.45}
+.visit-item small{font-size:10px;color:#8a7b6c}
+.visit-actions{display:flex;flex-direction:column;gap:7px;margin-top:11px}
+.visit-actions button{
+  width:100%;
+  border:1px solid rgba(111,86,61,.35);
+  border-radius:999px;
+  padding:8px 12px;
+  background:rgba(255,255,255,.78);
+  color:#fff;
+  cursor:pointer;
+  font-size:11px;
+}
+.visit-actions button.primary{background:#203b36;border-color:#203b36;color:#fff}
+
+@media(max-width:1200px) and (min-width:769px){
+  .visit-panel{
+    right:1.8%;
+    top:13%;
+    width:250px;
+    padding:14px 13px;
+  }
+  .visit-count{font-size:20px}
+  .visit-item{padding:7px 8px}
+  .visit-item p{font-size:11px}
+  .visit-sub,.visit-title{margin-bottom:9px}
+}
+
+/* 모바일에서는 인트로 아래, 8개 메뉴 카드 위 */
+.m-visit-panel{
+  margin:0 0 24px;
+  padding:22px 16px;
+  border:1px solid #d9ccb9;
+  border-radius:16px;
+  background:#fffaf3;
+  box-shadow:0 6px 18px rgba(44,34,23,.06);
+  text-align:center;
+}
+.m-visit-count{font:700 24px/1.25 "Batang",serif;color:#28443e}
+.m-visit-count span{color:#a56f3d}
+.m-visit-sub{margin:5px 0 18px;font-size:12px;color:#796b5e}
+.m-visit-title{margin:0 0 12px;font:700 18px/1.4 "Batang",serif;color:#51463c}
+.m-visit-item{padding:12px 4px;border-top:1px solid #e7ddd0;text-align:left}
+.m-visit-item:first-of-type{border-top:0}
+.m-visit-item p{margin:0 0 5px;font:15px/1.6 "Batang",serif;color:#4e463e}
+.m-visit-item small{font-size:11px;color:#998b7d}
+.m-visit-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.m-visit-actions button{
+  min-height:42px;border:1px solid #9d8062;border-radius:999px;
+  background:#fff;color:#604b37;font-weight:700;cursor:pointer
+}
+.m-visit-actions button.primary{background:#203b36;color:#fff;border-color:#203b36}
+
+
+/* PC 하단 8개 아이콘 영역을 살짝 밝게 보여주는 투명 오버레이 */
+@media (min-width:769px){
+  .hero::before{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height:31%;
+    z-index:2;
+    pointer-events:none;
+    background:linear-gradient(
+      180deg,
+      rgba(255,245,230,0) 0%,
+      rgba(255,235,205,.08) 30%,
+      rgba(255,226,185,.16) 100%
+    );
+  }
+
+  /* 나.인.지 패널 색상 최종 보정 */
+  .visit-panel{
+    background:rgba(248,241,230,.92) !important;
+    color:#3f352c !important;
+    border-color:rgba(163,126,83,.38) !important;
+  }
+  .visit-item{
+    background:rgba(255,255,255,.72) !important;
+  }
+  .visit-actions button{
+    background:rgba(255,255,255,.78) !important;
+    color:#5a4635 !important;
+    border-color:rgba(111,86,61,.35) !important;
+  }
+  .visit-actions button.primary{
+    background:#203b36 !important;
+    color:#fff !important;
+    border-color:#203b36 !important;
+  }
+}
 
 </style>
 
@@ -94,6 +214,22 @@
 <button class="music-toggle music-control" id="musicToggle" type="button" aria-pressed="false">♪ 음악 켜기</button>
 
 <main class="hero" id="home">
+
+<div class="visit-panel" aria-label="나.인.지 방문자 발자취 미리보기">
+  <div class="visit-count">나.인.지 · <span>1,200</span></div>
+  <div class="visit-sub">나의 인생지도를 함께한 발걸음</div>
+  <div class="visit-title">나.인.지에 남긴 발자취</div>
+  <div class="visit-list">
+    <div class="visit-item"><p>“좋은 글 보고 갑니다.”</p><small>— 김민수 · 2026.09.23</small></div>
+    <div class="visit-item"><p>“시간이 그린 얼굴이 참 좋네요.”</p><small>— 일선 · 2026.09.22</small></div>
+    <div class="visit-item"><p>“앞으로의 이야기도 기대하고 갑니다.”</p><small>— 부산손님 · 2026.09.20</small></div>
+  </div>
+  <div class="visit-actions">
+    <button class="primary" type="button">발자취 남기기</button>
+    <button type="button">더 보기</button>
+  </div>
+</div>
+
 <img src="images/main_home.png" alt="AI와 함께하는 나의 인생지도">
 <svg viewBox="0 0 1672 941" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
 
@@ -147,6 +283,20 @@ document.querySelectorAll('.hot').forEach(a=>{
   </nav>
   <div class="m-content">
     <div class="m-intro">여행하고, 걷고, 배우고,<br>새로운 것에 도전하며 기록하는 두 번째 인생 이야기</div>
+
+    <section class="m-visit-panel" aria-label="나.인.지 방문자 발자취 미리보기">
+      <div class="m-visit-count">나.인.지 · <span>1,200</span></div>
+      <div class="m-visit-sub">나의 인생지도를 함께한 발걸음</div>
+      <h2 class="m-visit-title">나.인.지에 남긴 발자취</h2>
+      <div class="m-visit-item"><p>“좋은 글 보고 갑니다.”</p><small>— 김민수 · 2026.09.23</small></div>
+      <div class="m-visit-item"><p>“시간이 그린 얼굴이 참 좋네요.”</p><small>— 일선 · 2026.09.22</small></div>
+      <div class="m-visit-item"><p>“앞으로의 이야기도 기대하고 갑니다.”</p><small>— 부산손님 · 2026.09.20</small></div>
+      <div class="m-visit-actions">
+        <button class="primary" type="button">발자취 남기기</button>
+        <button type="button">더 보기</button>
+      </div>
+    </section>
+
     <div class="m-grid">
       <a class="m-card active" href="story.html"><small>01 · STORY</small><b>나의 이야기</b></a>
       <a class="m-card" href="javascript:void(0)"><small>02 · TRAVEL</small><b>여행 이야기</b></a>
