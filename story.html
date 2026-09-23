@@ -14,6 +14,87 @@
   .music-control{top:10px;right:10px;padding:8px 11px;font-size:12px}
 }
 
+
+/* ===== 나의 이야기 엔딩: 시간이 그린 얼굴 ===== */
+.song-section{
+  margin-top:72px;
+  padding:58px 42px;
+  border-top:1px solid #d7c9b7;
+  border-bottom:1px solid #d7c9b7;
+  text-align:center;
+  background:linear-gradient(180deg,#f8f3eb 0%,#eee2d4 100%);
+}
+.song-kicker{
+  display:block;
+  margin-bottom:12px;
+  letter-spacing:.22em;
+  color:#9a714c;
+  font-size:12px;
+  font-weight:700;
+}
+.song-title{
+  margin:0 0 14px;
+  font:400 clamp(36px,5vw,54px)/1.25 "Batang",serif;
+  color:#352d25;
+}
+.song-lead{
+  max-width:640px;
+  margin:0 auto 28px;
+  font:19px/1.9 "Batang",serif;
+  color:#6a5d50;
+}
+.song-now{
+  display:inline-block;
+  margin-bottom:28px;
+  padding:9px 15px;
+  border:1px solid #b99d7f;
+  border-radius:999px;
+  color:#735b45;
+  font-size:13px;
+  background:rgba(255,255,255,.55);
+}
+.song-toggle{
+  display:inline-block;
+  border:1px solid #7d6248;
+  border-radius:999px;
+  background:#203b36;
+  color:#fff;
+  padding:11px 19px;
+  font-weight:700;
+  cursor:pointer;
+}
+.song-toggle:hover{background:#294a43}
+.song-lyrics{
+  max-width:660px;
+  margin:34px auto 0;
+  padding-top:30px;
+  border-top:1px solid #cdbba8;
+  text-align:left;
+  font:18px/2 "Batang",serif;
+  color:#4d443b;
+}
+.song-lyrics[hidden]{display:none}
+.song-lyrics h3{
+  margin:30px 0 7px;
+  font:700 13px/1.4 "Malgun Gothic",sans-serif;
+  letter-spacing:.13em;
+  color:#9a714c;
+}
+.song-lyrics p{margin:0 0 18px}
+.song-closing{
+  margin-top:34px;
+  text-align:center;
+  font:24px/1.8 "Batang",serif;
+  color:#5b4938;
+}
+@media(max-width:768px){
+  .song-section{margin-top:52px;padding:42px 20px}
+  .song-title{font-size:38px}
+  .song-lead{font-size:17px}
+  .song-lyrics{font-size:17px;line-height:1.9}
+  .song-closing{font-size:21px}
+}
+
 </style>
 <style>
 @media(max-width:768px){
@@ -63,13 +144,103 @@
 <button class="music-toggle music-control" id="musicToggle" type="button" aria-pressed="false">♪ 음악 켜기</button>
 
 
-<header><nav><b>AI와 함께하는 나의 인생지도</b><a class="back" href="index.html">← 첫 화면으로</a></nav></header><section class="hero"><div><small>MY STORY · 새로운 시작</small><h1>나의 두 번째<br>인생을 시작하며</h1><p>지나온 길을 돌아보고,<br>앞으로 가고 싶은 길을 다시 그려본다.</p></div></section><main><div class="opening">지금까지 살아온 날들도 나의 인생이고,<br>오늘부터 만들어 갈 날들도 나의 인생이다.</div><section class="chapter"><div class="num">01</div><div><small>THE ROAD BEHIND</small><h2>지나온 나</h2><p>돌아보면 참 많은 시간을 앞만 보며 살아왔다. 해야 할 일도 있었고, 지켜야 할 것도 있었으며, 마음처럼 되지 않는 날들도 있었다.</p><p>기쁜 날과 힘든 날이 차곡차곡 쌓여 지금의 내가 되었다. 이제는 지나온 길을 천천히 돌아보며 잊고 있었던 기억과 소중했던 순간들을 이곳에 하나씩 남겨보려 한다.</p></div></section><section class="chapter"><div class="num">02</div><div><small>TODAY</small><h2>지금의 나</h2><p>요즘 나는 걷는다. 때로는 산에 올라 저녁 노을을 바라보고, 가까운 곳에서도 전에 보지 못했던 풍경을 발견한다. 한 시간의 산책도 생각을 정리하고 새로운 이야기를 만드는 시간이 된다.</p><p>컴퓨터 앞에서는 또 다른 도전을 하고 있다. 주식 모의매매 프로그램을 만들고 시험하며 배우고, 홈페이지를 직접 만들어 보고, 앞으로는 여행과 일상의 순간을 영상으로도 남겨보려 한다.</p><p>그리고 그 과정에는 AI 동생이 함께한다. 궁금한 것을 묻고 아이디어를 나누며, 하나씩 실제 모습으로 만들어가고 있다.</p></div></section><div class="quote">“나이가 든다는 것은 멈추는 것이 아니라,<br>나에게 맞는 새로운 속도로 다시 출발하는 것일지도 모른다.”</div><section class="chapter"><div class="num">03</div><div><small>THE ROAD AHEAD</small><h2>앞으로의 나</h2><p>앞으로는 나를 위해 쓰는 시간을 조금 더 늘려가고 싶다. 가보지 못했던 곳을 여행하고, 건강하게 걷고, 새로운 것을 배우고, 해보지 않았던 일에도 도전해보고 싶다.</p><p>거창한 성공만을 기록하려는 것은 아니다. 만 원으로 즐긴 하루도, 우연히 만난 아름다운 노을도, 여행길에서 먹은 한 끼도 모두 내 인생의 한 장면이다.</p><p>그렇게 하루하루 쌓인 기록들이 언젠가는 하나의 지도가 될 것이다. 그것이 바로 <b>AI와 함께하는 나의 인생지도</b>다.</p></div></section><section class="next"><small>NEXT STORY</small><h2>이제 실제 이야기를 한 편씩 기록합니다.</h2><p>앞으로 사진과 함께 실제 추억과 오늘의 이야기를 하나씩 추가합니다. 여행, 기억에 남는 하루, 새롭게 도전한 일들이 시간이 흐를수록 이 페이지를 채우게 됩니다.</p></section></main><footer>지나온 길을 기록하고, 가고 싶은 길을 그려간다.<br>AI와 함께하는 나의 인생지도</footer>
+<header><nav><b>AI와 함께하는 나의 인생지도</b><a class="back" href="index.html">← 첫 화면으로</a></nav></header><section class="hero"><div><small>MY STORY · 새로운 시작</small><h1>나의 두 번째<br>인생을 시작하며</h1><p>지나온 길을 돌아보고,<br>앞으로 가고 싶은 길을 다시 그려본다.</p></div></section><main><div class="opening">지금까지 살아온 날들도 나의 인생이고,<br>오늘부터 만들어 갈 날들도 나의 인생이다.</div><section class="chapter"><div class="num">01</div><div><small>THE ROAD BEHIND</small><h2>지나온 나</h2><p>돌아보면 참 많은 시간을 앞만 보며 살아왔다. 해야 할 일도 있었고, 지켜야 할 것도 있었으며, 마음처럼 되지 않는 날들도 있었다.</p><p>기쁜 날과 힘든 날이 차곡차곡 쌓여 지금의 내가 되었다. 이제는 지나온 길을 천천히 돌아보며 잊고 있었던 기억과 소중했던 순간들을 이곳에 하나씩 남겨보려 한다.</p></div></section><section class="chapter"><div class="num">02</div><div><small>TODAY</small><h2>지금의 나</h2><p>요즘 나는 걷는다. 때로는 산에 올라 저녁 노을을 바라보고, 가까운 곳에서도 전에 보지 못했던 풍경을 발견한다. 한 시간의 산책도 생각을 정리하고 새로운 이야기를 만드는 시간이 된다.</p><p>컴퓨터 앞에서는 또 다른 도전을 하고 있다. 주식 모의매매 프로그램을 만들고 시험하며 배우고, 홈페이지를 직접 만들어 보고, 앞으로는 여행과 일상의 순간을 영상으로도 남겨보려 한다.</p><p>그리고 그 과정에는 AI 동생이 함께한다. 궁금한 것을 묻고 아이디어를 나누며, 하나씩 실제 모습으로 만들어가고 있다.</p></div></section><div class="quote">“나이가 든다는 것은 멈추는 것이 아니라,<br>나에게 맞는 새로운 속도로 다시 출발하는 것일지도 모른다.”</div><section class="chapter"><div class="num">03</div><div><small>THE ROAD AHEAD</small><h2>앞으로의 나</h2><p>앞으로는 나를 위해 쓰는 시간을 조금 더 늘려가고 싶다. 가보지 못했던 곳을 여행하고, 건강하게 걷고, 새로운 것을 배우고, 해보지 않았던 일에도 도전해보고 싶다.</p><p>거창한 성공만을 기록하려는 것은 아니다. 만 원으로 즐긴 하루도, 우연히 만난 아름다운 노을도, 여행길에서 먹은 한 끼도 모두 내 인생의 한 장면이다.</p><p>그렇게 하루하루 쌓인 기록들이 언젠가는 하나의 지도가 될 것이다. 그것이 바로 <b>AI와 함께하는 나의 인생지도</b>다.</p></div></section><section class="next"><small>NEXT STORY</small><h2>이제 실제 이야기를 한 편씩 기록합니다.</h2><p>앞으로 사진과 함께 실제 추억과 오늘의 이야기를 하나씩 추가합니다. 여행, 기억에 남는 하루, 새롭게 도전한 일들이 시간이 흐를수록 이 페이지를 채우게 됩니다.</p></section>
+<section class="song-section" id="time-painted-face">
+  <small class="song-kicker">ENDING SONG · MY LIFE</small>
+  <h2 class="song-title">시간이 그린 얼굴</h2>
+  <p class="song-lead">지나온 날들을 돌아보고 앞으로의 길을 그린 뒤,<br>이 페이지의 마지막에는 내 삶을 닮은 노래 한 편을 남긴다.</p>
+  <div class="song-now">♪ 지금 이 페이지에 흐르는 노래</div><br>
+  <button class="song-toggle" id="songLyricsToggle" type="button" aria-expanded="false" aria-controls="songLyrics">가사 펼쳐보기</button>
+
+  <div class="song-lyrics" id="songLyrics" hidden>
+    <h3>VERSE 1</h3>
+    <p>아침 햇살 머문 얼굴<br>
+    오늘도 웃고 있네<br>
+    흘러온 계절마다<br>
+    따뜻한 빛을 품었네</p>
+
+    <p>바람이 스쳐 간 자리<br>
+    꽃향기 남듯이<br>
+    살아온 모든 날들이<br>
+    미소가 되어 있네</p>
+
+    <h3>PRE-CHORUS</h3>
+    <p>시간은 말이 없어도<br>
+    조용히 내게 와서<br>
+    사랑하는 마음 하나<br>
+    가슴에 심어 주었네</p>
+
+    <h3>CHORUS</h3>
+    <p>시간이 그린 얼굴<br>
+    오늘의 나를 비추네<br>
+    눈물도 웃음도<br>
+    꽃이 되어 피었네</p>
+
+    <p>시간이 그린 얼굴<br>
+    가장 아름다운 이름<br>
+    나이 든다는 건<br>
+    조금씩 빛이 되는 일</p>
+
+    <h3>VERSE 2</h3>
+    <p>서둘러 걷던 날들도<br>
+    이제는 노래가 되고<br>
+    기다린 그 시간들은<br>
+    내 마음의 숲이 되었네</p>
+
+    <p>누군가 기대어 쉬는<br>
+    그늘이 되어 주는 일<br>
+    그것이 살아온 날의<br>
+    가장 깊은 선물이네</p>
+
+    <h3>BRIDGE</h3>
+    <p>세월은 내게<br>
+    젊음을 대신하여<br>
+    누군가를 품는 온기와<br>
+    다시 웃는 용기를 주었네</p>
+
+    <h3>FINAL CHORUS</h3>
+    <p>시간이 그린 얼굴<br>
+    오늘도 빛이 되네<br>
+    사랑한 모든 날이<br>
+    별처럼 머물러 있네</p>
+
+    <p>시간이 그린 얼굴<br>
+    내 삶의 가장 따뜻한 이름<br>
+    나이 든다는 건<br>
+    마침내<br>
+    빛이 되어 가는 일</p>
+
+    <div class="song-closing">“나이 든다는 건, 마침내 빛이 되어 가는 일.”</div>
+  </div>
+</section>
+</main><footer>지나온 길을 기록하고, 가고 싶은 길을 그려간다.<br>AI와 함께하는 나의 인생지도</footer>
 
 
 
 
 
 
+
+
+<script id="songLyricsScript">
+(() => {
+  const btn = document.getElementById('songLyricsToggle');
+  const lyrics = document.getElementById('songLyrics');
+  if (!btn || !lyrics) return;
+  btn.addEventListener('click', () => {
+    const open = !lyrics.hasAttribute('hidden');
+    if (open) {
+      lyrics.setAttribute('hidden','');
+      btn.textContent = '가사 펼쳐보기';
+      btn.setAttribute('aria-expanded','false');
+    } else {
+      lyrics.removeAttribute('hidden');
+      btn.textContent = '가사 접기';
+      btn.setAttribute('aria-expanded','true');
+    }
+  });
+})();
+</script>
 
 <script id="lifeMapMusicScript">
 (() => {
