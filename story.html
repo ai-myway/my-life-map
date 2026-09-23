@@ -267,10 +267,10 @@
     btn.textContent = audio.paused ? '♪ 음악 켜기' : '🔊 음악 끄기';
   }
   function save(){
-    if (Number.isFinite(audio.currentTime)) localStorage.setItem(TIME,String(audio.currentTime));
+    if (Number.isFinite(audio.currentTime)) sessionStorage.setItem(TIME,String(audio.currentTime));
   }
   function restore(){
-    const t=parseFloat(localStorage.getItem(TIME)||'0');
+    const t=parseFloat(sessionStorage.getItem(TIME)||'0');
     if (Number.isFinite(t) && t>=0) {
       const apply=()=>{ try{
         audio.currentTime = (Number.isFinite(audio.duration)&&audio.duration>0) ? t%audio.duration : t;
