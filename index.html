@@ -48,8 +48,51 @@
 @media(max-width:768px){.music-toggle{right:14px;top:14px;padding:11px 14px;font-size:13px}}
 
 </style>
+
+<style id="mobileLinkColorFix">
+@media(max-width:768px){
+  .mobile-home a,.mobile-home a:visited,.mobile-home a:hover,.mobile-home a:active{
+    color:inherit;text-decoration:none;
+  }
+}
+</style>
+
+<style id="mobileMusicSafePosition">
+@media (max-width:768px){
+  #musicToggle.music-control,
+  #musicToggle.music-toggle{
+    position:fixed !important;
+    top:auto !important;
+    right:12px !important;
+    bottom:calc(16px + env(safe-area-inset-bottom, 0px)) !important;
+    left:auto !important;
+    z-index:9000 !important;
+    width:auto !important;
+    max-width:132px !important;
+    min-height:42px !important;
+    padding:9px 12px !important;
+    margin:0 !important;
+    border-radius:999px !important;
+    font-size:12px !important;
+    line-height:1.2 !important;
+    white-space:nowrap !important;
+  }
+  /* Navigation stays above ordinary page content and remains independently clickable. */
+  .mobile-home, .mobile-home nav, .mobile-home a,
+  .story-page a, a[href="index.html"], a[href="./"]{
+    pointer-events:auto;
+  }
+}
+</style>
+
 </head>
 <body>
+
+<audio id="lifeMapMusic" loop preload="auto">
+  <source src="audio/time-painted-face.mp3" type="audio/mpeg">
+</audio>
+<button class="music-toggle music-control" id="musicToggle" type="button" aria-pressed="false">♪ 음악 켜기</button>
+
 <main class="hero" id="home">
 <img src="images/main_home.png" alt="AI와 함께하는 나의 인생지도">
 <svg viewBox="0 0 1672 941" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
@@ -123,142 +166,85 @@ const mb=document.getElementById('mobileMenuBtn'), mn=document.getElementById('m
 if(mb&&mn) mb.addEventListener('click',()=>{mn.classList.toggle('open');mb.textContent=mn.classList.contains('open')?'×':'☰';});
 </script>
 
-<audio id="introMusic" preload="auto" autoplay loop>
-  <source src="audio/time-painted-face.mp3" type="audio/mpeg">
-</audio>
-<button class="music-toggle" id="musicToggle" type="button" aria-pressed="false">♪ 음악 켜기</button>
-<script>
+
+<script id="lifeMapMusicScript">
 (() => {
-  const audio = document.getElementById('introMusic');
+  const audio = document.getElementById('lifeMapMusic');
   const btn = document.getElementById('musicToggle');
   if (!audio || !btn) return;
+
+  const STATE='lifeMapMusicState', TIME='lifeMapMusicTime', STAMP='lifeMapMusicStamp';
+  let state = localStorage.getItem(STATE) || 'on';
   audio.volume = 0.55;
 
-  const showOff = () => { btn.textContent = '🔊 음악 끄기'; btn.setAttribute('aria-pressed','true'); };
-  const showOn  = () => { btn.textContent = '♪ 음악 켜기'; btn.setAttribute('aria-pressed','false'); };
-
-  // 1) 페이지가 열릴 때 자동재생을 먼저 시도합니다.
-  const tryPlay = async () => {
-    try { await audio.play(); return true; } catch (e) { return false; }
+  const updateButton = () => {
+    const playing = !audio.paused;
+    btn.textContent = playing ? '🔊 음악 끄기' : '♪ 음악 켜기';
+    btn.setAttribute('aria-pressed', playing ? 'true' : 'false');
   };
-  window.addEventListener('load', tryPlay, { once:true });
 
-  // 2) 브라우저가 자동재생을 막으면, 방문자의 첫 클릭/터치/키 입력 순간 재생합니다.
-  //    음악 버튼 자체를 누른 경우에는 아래 버튼 전용 동작에 맡깁니다.
-  const firstInteraction = async (e) => {
-    if (e.target && e.target.closest && e.target.closest('#musicToggle')) return;
-    if (!audio.paused) { removeFirstInteraction(); return; }
-    if (await tryPlay()) removeFirstInteraction();
-  };
-  const removeFirstInteraction = () => {
-    document.removeEventListener('pointerdown', firstInteraction, true);
-    document.removeEventListener('touchstart', firstInteraction, true);
-    document.removeEventListener('keydown', firstInteraction, true);
-  };
-  document.addEventListener('pointerdown', firstInteraction, true);
-  document.addEventListener('touchstart', firstInteraction, true);
-  document.addEventListener('keydown', firstInteraction, true);
-
-  // 3) 오른쪽 위 버튼으로 언제든 직접 끄고 켤 수 있습니다.
-  btn.addEventListener('click', async (e) => {
-    e.stopPropagation();
-    if (audio.paused) {
-      if (!(await tryPlay())) {
-        showOn();
-        alert('브라우저에서 음악 재생이 차단되었습니다. 화면을 한 번 누른 뒤 다시 음악 켜기를 눌러주세요.');
-      }
-    } else {
-      audio.pause();
-      showOn();
-    }
-  });
-
-  audio.addEventListener('play', showOff);
-  audio.addEventListener('pause', showOn);
-  audio.addEventListener('ended', showOn);
-})();
-</script>
-
-
-<script>
-(() => {
-  const audio = document.getElementById('bgMusic');
-  const btn = document.getElementById('musicToggle');
-  if (!audio || !btn) return;
-
-  const KEY_STATE = 'lifeMapMusicState';
-  const KEY_TIME = 'lifeMapMusicTime';
-  const KEY_SAVED = 'lifeMapMusicSavedAt';
-  audio.volume = 0.75;
-
-  let state = localStorage.getItem(KEY_STATE);
-  if (!state) state = 'on';
-
-  function label() {
-    btn.textContent = audio.paused ? '♪ 음악 켜기' : '🔊 음악 끄기';
-  }
-
-  function savePosition() {
+  const save = () => {
     if (Number.isFinite(audio.currentTime)) {
-      localStorage.setItem(KEY_TIME, String(audio.currentTime));
-      localStorage.setItem(KEY_SAVED, String(Date.now()));
+      localStorage.setItem(TIME, String(audio.currentTime));
+      localStorage.setItem(STAMP, String(Date.now()));
     }
-  }
+  };
 
-  function restorePosition() {
-    let t = parseFloat(localStorage.getItem(KEY_TIME) || '0');
-    const savedAt = parseInt(localStorage.getItem(KEY_SAVED) || '0', 10);
-    // If music was ON, account for the short page-loading/navigation gap.
-    if (state === 'on' && savedAt > 0) {
-      t += Math.max(0, (Date.now() - savedAt) / 1000);
-    }
-    if (Number.isFinite(audio.duration) && audio.duration > 0) t = t % audio.duration;
+  const restore = () => {
+    let t = parseFloat(localStorage.getItem(TIME) || '0');
+    const stamp = Number(localStorage.getItem(STAMP) || '0');
+    if (state === 'on' && stamp) t += Math.max(0,(Date.now()-stamp)/1000);
+    if (Number.isFinite(audio.duration) && audio.duration > 0) t %= audio.duration;
     if (Number.isFinite(t) && t >= 0) {
-      try { audio.currentTime = t; } catch (_) {}
+      try { audio.currentTime = t; } catch(e) {}
     }
-  }
+  };
 
-  async function tryPlay() {
-    if (state !== 'on') { label(); return; }
-    try { await audio.play(); } catch (_) {}
-    label();
-  }
+  const play = async () => {
+    if (state !== 'on') { updateButton(); return; }
+    try { await audio.play(); } catch(e) {}
+    updateButton();
+  };
 
-  audio.addEventListener('loadedmetadata', () => {
-    restorePosition();
-    tryPlay();
-  }, {once:true});
+  audio.addEventListener('loadedmetadata', () => { restore(); play(); }, {once:true});
+  audio.addEventListener('play', updateButton);
+  audio.addEventListener('pause', updateButton);
+  audio.addEventListener('timeupdate', save);
 
   btn.addEventListener('click', async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+    e.preventDefault(); e.stopPropagation();
     if (audio.paused) {
-      state = 'on';
-      localStorage.setItem(KEY_STATE, 'on');
-      restorePosition();
-      try { await audio.play(); } catch (_) {}
+      state='on'; localStorage.setItem(STATE,'on');
+      restore(); await play();
     } else {
-      savePosition();
-      audio.pause();
-      state = 'off';
-      localStorage.setItem(KEY_STATE, 'off');
+      save(); audio.pause();
+      state='off'; localStorage.setItem(STATE,'off');
+      updateButton();
     }
-    label();
   });
 
-  // Save often enough that normal link navigation resumes almost exactly.
-  audio.addEventListener('timeupdate', savePosition);
-  window.addEventListener('pagehide', savePosition);
+  // Save immediately before every internal page move, whether the user
+  // chooses the top "나의 이야기", the STORY card, or "첫 화면으로".
+  document.addEventListener('click', (e) => {
+    const a=e.target.closest && e.target.closest('a[href]');
+    if (!a || a.id === 'musicToggle') return;
+    const href=a.getAttribute('href') || '';
+    if (href === 'story.html' || href === 'index.html' || href === './' || href === '/') save();
+  }, true);
+
+  window.addEventListener('pagehide', save);
   document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') savePosition();
+    if (document.visibilityState === 'hidden') save();
   });
 
-  // Browser autoplay fallback: first click/touch/key resumes from saved position.
-  const unlock = () => { if (state === 'on') tryPlay(); };
+  // Autoplay fallback: resume at the saved point on the first permitted interaction.
+  const unlock = (e) => {
+    if (e.target && e.target.closest && e.target.closest('#musicToggle')) return;
+    if (state === 'on' && audio.paused) play();
+  };
   document.addEventListener('pointerdown', unlock, {once:true, capture:true});
   document.addEventListener('keydown', unlock, {once:true, capture:true});
-
-  if (state === 'off') label();
+  updateButton();
 })();
 </script>
 

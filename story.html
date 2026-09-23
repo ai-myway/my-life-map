@@ -26,95 +26,128 @@
  .quote{margin:42px 0;padding:28px 17px;font-size:21px}.next{padding:28px 22px}
 }
 </style>
+
+<style id="mobileMusicSafePosition">
+@media (max-width:768px){
+  #musicToggle.music-control,
+  #musicToggle.music-toggle{
+    position:fixed !important;
+    top:auto !important;
+    right:12px !important;
+    bottom:calc(16px + env(safe-area-inset-bottom, 0px)) !important;
+    left:auto !important;
+    z-index:9000 !important;
+    width:auto !important;
+    max-width:132px !important;
+    min-height:42px !important;
+    padding:9px 12px !important;
+    margin:0 !important;
+    border-radius:999px !important;
+    font-size:12px !important;
+    line-height:1.2 !important;
+    white-space:nowrap !important;
+  }
+  /* Navigation stays above ordinary page content and remains independently clickable. */
+  .mobile-home, .mobile-home nav, .mobile-home a,
+  .story-page a, a[href="index.html"], a[href="./"]{
+    pointer-events:auto;
+  }
+}
+</style>
+
 </head><body>
 
-<audio id="bgMusic" loop preload="auto">
+<audio id="lifeMapMusic" loop preload="auto">
   <source src="audio/time-painted-face.mp3" type="audio/mpeg">
 </audio>
-<button id="musicToggle" class="music-control" type="button" aria-label="배경음악 켜기 또는 끄기">♪ 음악 켜기</button>
+<button class="music-toggle music-control" id="musicToggle" type="button" aria-pressed="false">♪ 음악 켜기</button>
+
+
 <header><nav><b>AI와 함께하는 나의 인생지도</b><a class="back" href="index.html">← 첫 화면으로</a></nav></header><section class="hero"><div><small>MY STORY · 새로운 시작</small><h1>나의 두 번째<br>인생을 시작하며</h1><p>지나온 길을 돌아보고,<br>앞으로 가고 싶은 길을 다시 그려본다.</p></div></section><main><div class="opening">지금까지 살아온 날들도 나의 인생이고,<br>오늘부터 만들어 갈 날들도 나의 인생이다.</div><section class="chapter"><div class="num">01</div><div><small>THE ROAD BEHIND</small><h2>지나온 나</h2><p>돌아보면 참 많은 시간을 앞만 보며 살아왔다. 해야 할 일도 있었고, 지켜야 할 것도 있었으며, 마음처럼 되지 않는 날들도 있었다.</p><p>기쁜 날과 힘든 날이 차곡차곡 쌓여 지금의 내가 되었다. 이제는 지나온 길을 천천히 돌아보며 잊고 있었던 기억과 소중했던 순간들을 이곳에 하나씩 남겨보려 한다.</p></div></section><section class="chapter"><div class="num">02</div><div><small>TODAY</small><h2>지금의 나</h2><p>요즘 나는 걷는다. 때로는 산에 올라 저녁 노을을 바라보고, 가까운 곳에서도 전에 보지 못했던 풍경을 발견한다. 한 시간의 산책도 생각을 정리하고 새로운 이야기를 만드는 시간이 된다.</p><p>컴퓨터 앞에서는 또 다른 도전을 하고 있다. 주식 모의매매 프로그램을 만들고 시험하며 배우고, 홈페이지를 직접 만들어 보고, 앞으로는 여행과 일상의 순간을 영상으로도 남겨보려 한다.</p><p>그리고 그 과정에는 AI 동생이 함께한다. 궁금한 것을 묻고 아이디어를 나누며, 하나씩 실제 모습으로 만들어가고 있다.</p></div></section><div class="quote">“나이가 든다는 것은 멈추는 것이 아니라,<br>나에게 맞는 새로운 속도로 다시 출발하는 것일지도 모른다.”</div><section class="chapter"><div class="num">03</div><div><small>THE ROAD AHEAD</small><h2>앞으로의 나</h2><p>앞으로는 나를 위해 쓰는 시간을 조금 더 늘려가고 싶다. 가보지 못했던 곳을 여행하고, 건강하게 걷고, 새로운 것을 배우고, 해보지 않았던 일에도 도전해보고 싶다.</p><p>거창한 성공만을 기록하려는 것은 아니다. 만 원으로 즐긴 하루도, 우연히 만난 아름다운 노을도, 여행길에서 먹은 한 끼도 모두 내 인생의 한 장면이다.</p><p>그렇게 하루하루 쌓인 기록들이 언젠가는 하나의 지도가 될 것이다. 그것이 바로 <b>AI와 함께하는 나의 인생지도</b>다.</p></div></section><section class="next"><small>NEXT STORY</small><h2>이제 실제 이야기를 한 편씩 기록합니다.</h2><p>앞으로 사진과 함께 실제 추억과 오늘의 이야기를 하나씩 추가합니다. 여행, 기억에 남는 하루, 새롭게 도전한 일들이 시간이 흐를수록 이 페이지를 채우게 됩니다.</p></section></main><footer>지나온 길을 기록하고, 가고 싶은 길을 그려간다.<br>AI와 함께하는 나의 인생지도</footer>
 
 
 
-<script>
+
+
+
+<script id="lifeMapMusicScript">
 (() => {
-  const audio = document.getElementById('bgMusic');
+  const audio = document.getElementById('lifeMapMusic');
   const btn = document.getElementById('musicToggle');
   if (!audio || !btn) return;
 
-  const KEY_STATE = 'lifeMapMusicState';
-  const KEY_TIME = 'lifeMapMusicTime';
-  const KEY_SAVED = 'lifeMapMusicSavedAt';
-  audio.volume = 0.75;
+  const STATE='lifeMapMusicState', TIME='lifeMapMusicTime', STAMP='lifeMapMusicStamp';
+  let state = localStorage.getItem(STATE) || 'on';
+  audio.volume = 0.55;
 
-  let state = localStorage.getItem(KEY_STATE);
-  if (!state) state = 'on';
+  const updateButton = () => {
+    const playing = !audio.paused;
+    btn.textContent = playing ? '🔊 음악 끄기' : '♪ 음악 켜기';
+    btn.setAttribute('aria-pressed', playing ? 'true' : 'false');
+  };
 
-  function label() {
-    btn.textContent = audio.paused ? '♪ 음악 켜기' : '🔊 음악 끄기';
-  }
-
-  function savePosition() {
+  const save = () => {
     if (Number.isFinite(audio.currentTime)) {
-      localStorage.setItem(KEY_TIME, String(audio.currentTime));
-      localStorage.setItem(KEY_SAVED, String(Date.now()));
+      localStorage.setItem(TIME, String(audio.currentTime));
+      localStorage.setItem(STAMP, String(Date.now()));
     }
-  }
+  };
 
-  function restorePosition() {
-    let t = parseFloat(localStorage.getItem(KEY_TIME) || '0');
-    const savedAt = parseInt(localStorage.getItem(KEY_SAVED) || '0', 10);
-    // If music was ON, account for the short page-loading/navigation gap.
-    if (state === 'on' && savedAt > 0) {
-      t += Math.max(0, (Date.now() - savedAt) / 1000);
-    }
-    if (Number.isFinite(audio.duration) && audio.duration > 0) t = t % audio.duration;
+  const restore = () => {
+    let t = parseFloat(localStorage.getItem(TIME) || '0');
+    const stamp = Number(localStorage.getItem(STAMP) || '0');
+    if (state === 'on' && stamp) t += Math.max(0,(Date.now()-stamp)/1000);
+    if (Number.isFinite(audio.duration) && audio.duration > 0) t %= audio.duration;
     if (Number.isFinite(t) && t >= 0) {
-      try { audio.currentTime = t; } catch (_) {}
+      try { audio.currentTime = t; } catch(e) {}
     }
-  }
+  };
 
-  async function tryPlay() {
-    if (state !== 'on') { label(); return; }
-    try { await audio.play(); } catch (_) {}
-    label();
-  }
+  const play = async () => {
+    if (state !== 'on') { updateButton(); return; }
+    try { await audio.play(); } catch(e) {}
+    updateButton();
+  };
 
-  audio.addEventListener('loadedmetadata', () => {
-    restorePosition();
-    tryPlay();
-  }, {once:true});
+  audio.addEventListener('loadedmetadata', () => { restore(); play(); }, {once:true});
+  audio.addEventListener('play', updateButton);
+  audio.addEventListener('pause', updateButton);
+  audio.addEventListener('timeupdate', save);
 
   btn.addEventListener('click', async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+    e.preventDefault(); e.stopPropagation();
     if (audio.paused) {
-      state = 'on';
-      localStorage.setItem(KEY_STATE, 'on');
-      restorePosition();
-      try { await audio.play(); } catch (_) {}
+      state='on'; localStorage.setItem(STATE,'on');
+      restore(); await play();
     } else {
-      savePosition();
-      audio.pause();
-      state = 'off';
-      localStorage.setItem(KEY_STATE, 'off');
+      save(); audio.pause();
+      state='off'; localStorage.setItem(STATE,'off');
+      updateButton();
     }
-    label();
   });
 
-  // Save often enough that normal link navigation resumes almost exactly.
-  audio.addEventListener('timeupdate', savePosition);
-  window.addEventListener('pagehide', savePosition);
+  // Save immediately before every internal page move, whether the user
+  // chooses the top "나의 이야기", the STORY card, or "첫 화면으로".
+  document.addEventListener('click', (e) => {
+    const a=e.target.closest && e.target.closest('a[href]');
+    if (!a || a.id === 'musicToggle') return;
+    const href=a.getAttribute('href') || '';
+    if (href === 'story.html' || href === 'index.html' || href === './' || href === '/') save();
+  }, true);
+
+  window.addEventListener('pagehide', save);
   document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') savePosition();
+    if (document.visibilityState === 'hidden') save();
   });
 
-  // Browser autoplay fallback: first click/touch/key resumes from saved position.
-  const unlock = () => { if (state === 'on') tryPlay(); };
+  // Autoplay fallback: resume at the saved point on the first permitted interaction.
+  const unlock = (e) => {
+    if (e.target && e.target.closest && e.target.closest('#musicToggle')) return;
+    if (state === 'on' && audio.paused) play();
+  };
   document.addEventListener('pointerdown', unlock, {once:true, capture:true});
   document.addEventListener('keydown', unlock, {once:true, capture:true});
-
-  if (state === 'off') label();
+  updateButton();
 })();
 </script>
 
